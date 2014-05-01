@@ -9,7 +9,9 @@ angular.module('yodeskApp')
     jobs.scope.$on('added', function(e, u) {
       u.reverse().forEach(function(j) {
         $scope.jobs.unshift(j);
-        $scope.jobs.pop();
+        if ($scope.jobs.length > jobs.max) {
+          $scope.jobs.pop();
+        }
       });
     });
     $scope.existingSettings = function(o) {

@@ -20,6 +20,7 @@ angular.module('yodeskApp')
       get: function() {
         return jobs;
       },
+      max: MAX_JOBS,
       scope: scope
     }
   });
