@@ -1,0 +1,15 @@
+<div ng-include="'partials/navbar'"></div>
+        <ul class="list-group repeat-animate-container">
+            <li class="fade-animation list-group-item" ng-repeat="data in jobs">
+                <div job ng-model="data"></div>
+            </li>
+        </ul>
+
+<div ng-show="!jobs.length">
+    <p>No recent jobs for settings:</p>
+    <ul>
+        <li ng-repeat="(field, setting) in existingSettings(settings)">
+            <p>{{field}}: </p><p>{{setting}}</p>
+        </li>
+    </ul>
+</div>

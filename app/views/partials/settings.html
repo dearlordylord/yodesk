@@ -1,0 +1,90 @@
+<div ng-include="'partials/navbar.html'"></div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <h1>Change Settings</h1>
+    </div>
+
+    <div class="col-sm-12">
+        <ng-form novalidate class="form" role="form" name="settingsForm">
+            <div class="form-group">
+                <label for="words">Words</label>
+                <textarea
+                        class="form-control"
+                        name="words"
+                        type="text"
+                        id="words"
+                        ng-model="settings.words"
+                        placeholder="node.js, rails"></textarea>
+                <p class="help-block">Words to search in job title, description and skills. Try to put there more generic words that have faster jobs rotation. Yodesk was projected for fast search amongst <b>recently</b> posted jobs.</p>
+            </div>
+            <div class="form-group">
+                <label for="wordsBlacklist">Blacklisted words</label>
+                <textarea
+                        class="form-control"
+                        name="wordsBlacklist"
+                        type="text"
+                        id="wordsBlacklist"
+                        ng-model="settings.wordsBlacklist"
+                        placeholder="php, joomla"></textarea>
+                <p class="help-block">Words to blacklist in job title, description and skills</p>
+            </div>
+            <div class="form-group">
+                <label for="subcategory">Job subcategory</label>
+                <select class="form-control"
+                        name="subcategory"
+                        multiple
+                        id="subcategory"
+                        ng-options="sub.title as sub.title group by sub.category for sub in subcategories"
+                        ng-model="settings.subcategories"
+                        data-ng-attr-size="{{subcategories.length + categories.length}}">
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="countryBlacklist">Client country blacklist</label>
+                <input class="form-control" name="countryBlacklist" type="text" id="countryBlacklist" ng-model="settings.countryBlacklist"/>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-lg btn-primary" ng-click="save()">Save</button>
+            </div>
+            <toaster-container></toaster-container>
+        </ng-form>
+    </div>
+</div>
+
+<div class="row" ng-show="isLoggedIn()">
+    <div class="col-sm-12">
+        <h1>Change Password</h1>
+    </div>
+    <div class="col-sm-12">
+        <form class="form" name="form" ng-submit="changePassword(form)" novalidate>
+
+            <div class="form-group">
+                <label>Current Password</label>
+
+                <input type="password" name="password" class="form-control" ng-model="user.oldPassword"
+                       mongoose-error/>
+                <p class="help-block" ng-show="form.password.$error.mongoose">
+                    {{ errors.other }}
+                </p>
+            </div>
+
+            <div class="form-group">
+                <label>New Password</label>
+
+                <input type="password" name="newPassword" class="form-control" ng-model="user.newPassword"
+                       ng-minlength="3"
+                       required/>
+                <p class="help-block"
+                   ng-show="(form.newPassword.$error.minlength || form.newPassword.$error.required) && (form.newPassword.$dirty || submitted)">
+                    Password must be at least 3 characters.
+                </p>
+            </div>
+
+            <p class="help-block"> {{ message }} </p>
+
+            <button class="btn btn-lg btn-primary" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+
