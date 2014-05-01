@@ -1,0 +1,21 @@
+<div class="job">
+    <div class="job-date"><div class="job-date-inner">{{dateFormat(job.date_created)}}</div></div>
+    <h3 class="job-title"><a ng-href="{{job.url}}" ng-bind-html="title"></a></h3>
+
+    <p class="job-snippet" ng-bind-html="snippet"></p>
+    <span class="job-more-less btn btn-default small" ng-show="!isFull && isFull !== undefined" ng-click="isFull = !isFull">more...</span>
+    <span class="job-more-less btn btn-default small" ng-show="isFull" ng-click="isFull = !isFull">less...</span>
+
+
+
+    <!--<div class="job-duration">{{job.duration}}</div>-->
+    <div class="job-skills">
+        <span ng-repeat="skill in job.skills" class="badge job-skill" ng-class="{'highlight': highlights.skills.searchResult[$index]}">{{skill}}</span>
+    </div>
+
+    <div class="job-category-and-subcategory">
+        <span class="job-category">{{job.category}}</span><span> / </span>
+        <span class="job-subcategory">{{job.subcategory}}</span><span ng-show="job.country">, {{job.country}}</span>
+    </div>
+
+</div>
