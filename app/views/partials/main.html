@@ -1,6 +1,6 @@
 <div ng-include="'partials/navbar'"></div>
         <ul class="list-group repeat-animate-container">
-            <li class="fade-animation list-group-item" ng-repeat="data in jobs">
+            <li class="fade-animation list-group-item" ng-repeat="data in jobs track by data.job.id">
                 <div job ng-model="data"></div>
             </li>
         </ul>

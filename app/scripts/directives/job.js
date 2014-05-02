@@ -61,18 +61,19 @@ angular.module('yodeskApp')
           var hlEnd = '</b>';
           var hlLength = hlStart.length + hlEnd.length;
 
-          scope.highlights[field].searchResult.forEach(function(hl) {
-            str = [str.slice(0, hl[0] + hlShift),
-              hlStart,
-              str.slice(hl[0] + hlShift, hl[1] + hlShift),
-              hlEnd,
-              str.slice(hl[1] + hlShift)].join('');
-            hlShift = hlShift + hlLength;
-          });
+          if (scope.highlights[field])
+            scope.highlights[field].searchResult.forEach(function(hl) {
+              str = [str.slice(0, hl[0] + hlShift),
+                hlStart,
+                str.slice(hl[0] + hlShift, hl[1] + hlShift),
+                hlEnd,
+                str.slice(hl[1] + hlShift)].join('');
+              hlShift = hlShift + hlLength;
+            });
 
           return str;
         }
-        scope.title = scope.job.title
+        scope.title = scope.job.title;
         scope.switchFull = function() {
           scope.isFull = !scope.isFull;
         };
