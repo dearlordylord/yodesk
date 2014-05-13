@@ -7,9 +7,22 @@ angular.module('yodeskApp', [
   'ngRoute',
   'ngAnimate',
   'toaster',
-  'btford.socket-io'
+  'btford.socket-io',
+  'angular-google-analytics'
 ])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
+  .config(function ($routeProvider, $locationProvider, $httpProvider, AnalyticsProvider) {
+
+    AnalyticsProvider.setAccount('UA-50606772-1');
+    AnalyticsProvider.trackPages(true);
+
+    // Use analytics.js instead of ga.js
+//    AnalyticsProvider.useAnalytics(true);
+
+    // Ignore first page view... helpful when using hashes and whenever your bounce rate looks obscenely low.
+//    AnalyticsProvider.ignoreFirstPageLoad(true);
+
+    AnalyticsProvider.useEnhancedLinkAttribution(true);
+
     $routeProvider
       .when('/', {
         templateUrl: 'partials/main',

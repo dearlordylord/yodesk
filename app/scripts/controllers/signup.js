@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('yodeskApp')
-  .controller('SignupCtrl', function ($scope, Auth, $location) {
+  .controller('SignupCtrl', function ($scope, Auth, $location, $rootScope) {
     $scope.user = {};
     $scope.errors = {};
 
@@ -12,7 +12,8 @@ angular.module('yodeskApp')
         Auth.createUser({
           name: $scope.user.name,
           email: $scope.user.email,
-          password: $scope.user.password
+          password: $scope.user.password,
+          settings: $rootScope.settings
         })
         .then( function() {
           // Account created, redirect to home
