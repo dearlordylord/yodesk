@@ -253,12 +253,12 @@ exports.jobs = function(socket) {
         }))];
       }))});
     }).select(function(o) {
-      // at lreast one match per field or all settings isn't set at all
+      // at least one match per field or all settings isn't set at all
       return _.find(_.values(o.filteredFields), function(m) {
           // at least one match per field
           return m && m.match;
         }) || !_.find(_.values(o.filteredFields), function(v) {return v !== undefined});
-    }).take(MAX_JOBS_FOR_CLIENT).value();
+    }).take(MAX_JOBS_FOR_CLIENT).toArray();
   };
 
   var addedCallback = function(added) {
@@ -273,14 +273,10 @@ exports.jobs = function(socket) {
   socket.on('settings', function(s) {
     // start sending jobs only on settings set (or fact that there's no settings is present)
     settings = s;
-    socket.emit('jobs', filtered(jobs));
+    var jbs = filtered(jobs);
+    socket.emit('jobs', jbs);
     jobsEmitter.on('added', addedCallback);
-//    fs.readFile('debug.log', function(err, data) {
-//      if (err) console.warn(err);
-//      else {
-//        setTimeout(function(){jobsEmitter.emit('added', JSON.parse(data))}, 3000);
-//      }
-//    });
+
     socket.on('disconnect', function() {
       jobsEmitter.removeListener('added', addedCallback);
     });
