@@ -10,6 +10,9 @@ angular.module('yodeskApp')
       scope.$emit('jobs', jobs);
     });
     $rootScope.$on('socket:added', function(e, u) {
+      u = _.select(u, function(j) {
+        return !_.find(jobs, function(job) {return job.job.id === j.job.id;});
+      });
       jobs = _.first(u.concat(jobs), MAX_JOBS);
       scope.$emit('added', u);
     });

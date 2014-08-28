@@ -2,7 +2,6 @@
 
 angular.module('yodeskApp')
   .controller('MainCtrl', function ($scope, $http, $rootScope, jobs, notify) {
-    $scope.jobs = jobs.get();
     jobs.scope.$on('jobs', function(e, j) {
       $scope.jobs = j;
     });
