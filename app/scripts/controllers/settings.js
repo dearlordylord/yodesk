@@ -70,7 +70,6 @@ angular.module('yodeskApp')
           .then(function() {
             toaster.pop('success', 'Settings successfully changed');
             $rootScope.settings = settings;
-            $location.path('/');
           })
           .catch(function() {
             $scope.errors.other = 'Incorrect settings';
@@ -78,8 +77,9 @@ angular.module('yodeskApp')
       } else {
         $rootScope.settings = settings;
         toaster.pop('info', 'Settings successfully changed', 'Settings will temporarily persist until next app refresh');
-        $location.path('/');
       }
+
+      $location.path('/');
 
 
 
